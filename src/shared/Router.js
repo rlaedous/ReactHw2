@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Detail from "../pages/Detail";
 import Home from "../pages/Home";
 import { useState } from "react";
-import uuid from "react-uuid";
 
 const Router = () => {
   const [feed, setFeed] = useState([
@@ -62,7 +61,10 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home feed={feed} setFeed={setFeed} />} />
-        <Route path="/detail/:id" element={<Detail feed={feed} />} />
+        <Route
+          path="/detail/:id"
+          element={<Detail feed={feed} setFeed={setFeed} />}
+        />
       </Routes>
     </BrowserRouter>
   );

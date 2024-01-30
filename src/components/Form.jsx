@@ -92,7 +92,7 @@ const StButton = styled.button`
   color: white;
 `;
 const StFeedSection = styled.div`
-  flex-direction: row;
+  flex-direction: column;
   width: 500px;
   margin: 20px;
 `;
@@ -105,16 +105,6 @@ const StFeedDate = styled.div``;
 const StFeedContent = styled.div``;
 
 function Form({ feed, setFeed }) {
-  // const [feed, setFeed] = useState([
-  //   {
-  //     createdAt: "",
-  //     nickname: "",
-  //     avatar: "",
-  //     content: "",
-  //     writedTo: "",
-  //     id: uuid(),
-  //   },
-  // ]);
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [member, setMember] = useState("카리나");
@@ -211,33 +201,30 @@ function Form({ feed, setFeed }) {
         </StButtonDiv>
       </StForm>
 
-      {/* 페이크데이터부분 */}
-
       <div>
         {filteredData.map((item) => {
           return (
             <div key={item.id} style={{ border: "1px solid red" }}>
-              <StFeedSection>
-                <Link to={`/detail/${item.id}`}>
-                  <img
-                    src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg"
-                    alt="유저 프로필 이미지"
-                  />
-                  <StFeedNicknameDate>
-                    <StFeedNickname>{item.nickname}</StFeedNickname>
-                    <StFeedDate>{item.createdAt}</StFeedDate>
-                    <StFeedContent>{item.content}</StFeedContent>
-                  </StFeedNicknameDate>
-                  {/* <div>{item.writedTo}</div> */}
-                </Link>
-              </StFeedSection>
+              <Link to={`/detail/${item.id}`}>
+                <StFeedSection>
+                  <div style={{ backgroundColor: "red", flexDirection: "row" }}>
+                    <img
+                      src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg"
+                      alt="유저 프로필 이미지"
+                    />
+                    <StFeedNicknameDate>
+                      <StFeedNickname>{item.nickname}</StFeedNickname>
+                      <StFeedDate>{item.createdAt}</StFeedDate>
+                    </StFeedNicknameDate>
+                  </div>
+                  <StFeedContent>{item.content}</StFeedContent>
+                </StFeedSection>
+              </Link>
             </div>
           );
         })}
         {filteredData.length === 0 ? <>데이터가없습니다</> : null}
       </div>
-
-      {/* 팬레터 등록 */}
     </>
   );
 }

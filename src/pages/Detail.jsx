@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StFeedSection = styled.div`
@@ -16,22 +16,21 @@ const StFeedNickname = styled.div``;
 const StFeedDate = styled.div``;
 const StFeedContent = styled.div``;
 
-function Detail({ feed }) {
+function Detail({ feed, setFeed }) {
   const params = useParams();
-  console.log("params", params);
+  const navigate = useNavigate();
 
-  // fakeData.js에서 가져와서 가공
   const foundData = feed.find((item) => {
     return item.id === params.id;
   });
-  console.log(foundData);
-  // feed에서 가공
-  const feedData = feed.find((item) => {
-    return item.id === params.id;
-  });
 
-  console.log(feed);
-  console.log(feedData);
+  const goHome = () => {
+    navigate("/");
+  };
+  const DeleteButton = () => {
+    setFeed((prev) => prev.filter((item) => item.id !== params.id));
+    navigate("/");
+  };
 
   return (
     <>
@@ -39,8 +38,7 @@ function Detail({ feed }) {
         <div>데이터가없습니다</div>
       ) : (
         <>
-          <div>상세페이지1111</div>
-          <button>홈으로</button>
+          <button onClick={goHome}>홈으로</button>
           <div>
             <StFeedSection>
               {/* <img src="" alt="유저 프로필 이미지" /> */}
@@ -57,6 +55,8 @@ function Detail({ feed }) {
               <div>{foundData.writedTo}</div>
             </StFeedSection>
           </div>
+          <button>수정</button>
+          <button onClick={DeleteButton}>삭제</button>
         </>
       )}
     </>
