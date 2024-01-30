@@ -122,7 +122,7 @@ function Form({ feed, setFeed }) {
       createdAt: Number(new Date()),
       nickname,
       content,
-      // avatar: avatar,
+      // avatar,
       writedTo: member,
       id: uuid(),
     };
@@ -143,9 +143,6 @@ function Form({ feed, setFeed }) {
     setMember(e.target.value);
   };
 
-  // const MoveDetail = () => {
-  //   <Link to="/detail/d" />;
-  // };
   const filteredData = feed.filter((item) => item.writedTo === clicked);
   return (
     <>
@@ -176,6 +173,7 @@ function Form({ feed, setFeed }) {
             value={nickname}
             onChange={nickNameChangeHandler}
             placeholder="최대 20글자까지 작성할 수 있습니다"
+            maxLength={"20"}
           />
         </StSection>
         <StSection>
@@ -185,6 +183,7 @@ function Form({ feed, setFeed }) {
             value={content}
             placeholder="최대 100글자까지 작성할 수 있습니다"
             onChange={contentsChangeHandler}
+            maxLength={"100"}
           />
         </StSection>
         <StSelectWrap>
@@ -208,10 +207,7 @@ function Form({ feed, setFeed }) {
               <Link to={`/detail/${item.id}`}>
                 <StFeedSection>
                   <div style={{ backgroundColor: "red", flexDirection: "row" }}>
-                    <img
-                      src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg"
-                      alt="유저 프로필 이미지"
-                    />
+                    <img src={`${item.avatar}`} alt="유저 프로필 이미지" />
                     <StFeedNicknameDate>
                       <StFeedNickname>{item.nickname}</StFeedNickname>
                       <StFeedDate>{item.createdAt}</StFeedDate>
