@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
-
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 const StTop = styled.div`
   /* display: flex;
   flex-direction: column;
@@ -56,16 +56,45 @@ const StSection = styled.section`
   display: flex;
   margin: 0 0 10px 0;
 `;
-const StNickname = styled.div``;
-const StInput = styled.input``;
-const StContents = styled.div``;
+const StSelectWrap = styled.section`
+  display: flex;
+  flex-direction: row;
+`;
+const StNickname = styled.div`
+  width: 100px;
+  justify-content: center;
+`;
+const StInput = styled.input`
+  padding: 5px;
+  width: 100%;
+`;
+const StContents = styled.div`
+  width: 100px;
+  justify-content: center;
+`;
 const StTextarea = styled.textarea`
+  padding: 5px;
+  width: 100%;
   resize: none;
 `;
-const StButtonDiv = styled.div``;
-const StButton = styled.button``;
+const StButtonDiv = styled.div`
+  display: flex;
+  /* background-color: red; */
+  align-items: flex-end;
+`;
+const StButton = styled.button`
+  font-size: 14px;
+  padding: 5px 10px;
+  cursor: pointer;
+  /* user-select: none; */
+
+  background-color: black;
+  color: white;
+`;
 const StFeedSection = styled.div`
   flex-direction: row;
+  width: 500px;
+  margin: 20px;
 `;
 const StFeedNicknameDate = styled.div`
   display: flex;
@@ -75,36 +104,35 @@ const StFeedNickname = styled.div``;
 const StFeedDate = styled.div``;
 const StFeedContent = styled.div``;
 
-function Form({ fakeData }) {
-  const [feed, setFeed] = useState([
-    {
-      createdAt: "",
-      nickname: "",
-      avatar: "",
-      content: "",
-      writedTo: "",
-      id: uuid(),
-    },
-  ]);
+function Form({ feed, setFeed }) {
+  // const [feed, setFeed] = useState([
+  //   {
+  //     createdAt: "",
+  //     nickname: "",
+  //     avatar: "",
+  //     content: "",
+  //     writedTo: "",
+  //     id: uuid(),
+  //   },
+  // ]);
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [member, setMember] = useState("카리나");
-  const [clickd, setClickd] = useState("카리나");
+  const [clicked, setClicked] = useState("카리나");
 
   const ClickPerson = (e) => {
-    setClickd(e.target.value);
+    setClicked(e.target.value);
   };
-
   const Enroll = (e) => {
     e.preventDefault();
     if (nickname.length === 0 || content.length === 0) {
       return alert("닉네임과 내용은 필수 입력입니다!");
     }
     const newFeed = {
-      createdAt: +new Date(),
+      createdAt: Number(new Date()),
       nickname,
       content,
-      // avatar,
+      // avatar: avatar,
       writedTo: member,
       id: uuid(),
     };
@@ -125,7 +153,10 @@ function Form({ fakeData }) {
     setMember(e.target.value);
   };
 
-  const filteredData = fakeData.filter((item) => item.writedTo === clickd);
+  // const MoveDetail = () => {
+  //   <Link to="/detail/d" />;
+  // };
+  const filteredData = feed.filter((item) => item.writedTo === clicked);
   return (
     <>
       <StTop>
@@ -149,22 +180,24 @@ function Form({ fakeData }) {
       <StForm onSubmit={Enroll}>
         {/* <StForm onSubmit={() => Enroll()}> */}
         <StSection>
-          <StNickname>닉네임</StNickname>
+          <StNickname>닉네임:</StNickname>
           <StInput
             type="text"
             value={nickname}
             onChange={nickNameChangeHandler}
+            placeholder="최대 20글자까지 작성할 수 있습니다"
           />
         </StSection>
         <StSection>
-          <StContents>내용</StContents>
+          <StContents>내용:</StContents>
           <StTextarea
             type="text"
             value={content}
+            placeholder="최대 100글자까지 작성할 수 있습니다"
             onChange={contentsChangeHandler}
           />
         </StSection>
-        <StSection>
+        <StSelectWrap>
           누구에게 보내실 건가요?
           <select onChange={selectMember}>
             <option value="카리나">카리나</option>
@@ -172,64 +205,39 @@ function Form({ fakeData }) {
             <option value="닝닝">닝닝</option>
             <option value="지젤">지젤</option>
           </select>
-        </StSection>
+        </StSelectWrap>
         <StButtonDiv>
           <StButton>팬레터 등록</StButton>
         </StButtonDiv>
       </StForm>
 
-      {/* 피드부분 */}
+      {/* 페이크데이터부분 */}
 
       <div>
         {filteredData.map((item) => {
           return (
             <div key={item.id} style={{ border: "1px solid red" }}>
               <StFeedSection>
-                <img
-                  src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg"
-                  alt="유저 프로필 이미지"
-                />
-                <StFeedNicknameDate>
-                  <StFeedNickname>{item.nickname}</StFeedNickname>
-                  <StFeedDate>{item.createdAt}</StFeedDate>
-                  <StFeedContent>{item.content}</StFeedContent>
-                </StFeedNicknameDate>
-                <div>{item.writedTo}</div>
+                <Link to={`/detail/${item.id}`}>
+                  <img
+                    src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg"
+                    alt="유저 프로필 이미지"
+                  />
+                  <StFeedNicknameDate>
+                    <StFeedNickname>{item.nickname}</StFeedNickname>
+                    <StFeedDate>{item.createdAt}</StFeedDate>
+                    <StFeedContent>{item.content}</StFeedContent>
+                  </StFeedNicknameDate>
+                  {/* <div>{item.writedTo}</div> */}
+                </Link>
               </StFeedSection>
             </div>
           );
         })}
-
         {filteredData.length === 0 ? <>데이터가없습니다</> : null}
       </div>
 
       {/* 팬레터 등록 */}
-      <div>
-        {feed
-          .filter((item2) => item2.writedTo === clickd)
-          // .filter((item2) => item2.writedTo === "카리나")
-          .map((item2) => {
-            return (
-              // <div key={item2.id}>{item2.nickname}</div>
-              <div key={item2.id}>
-                <StFeedSection>
-                  {/* <img src="" alt="유저 프로필 이미지" /> */}
-                  {item2.avatar ? (
-                    <img src="" alt="유저 프로필 이미지" />
-                  ) : (
-                    <></>
-                  )}
-                  <StFeedNicknameDate>
-                    <StFeedNickname>{item2.nickname}</StFeedNickname>
-                    <StFeedDate>{item2.createdAt}</StFeedDate>
-                    <StFeedContent>{item2.content}</StFeedContent>
-                  </StFeedNicknameDate>
-                  <div>{item2.writedTo}</div>
-                </StFeedSection>
-              </div>
-            );
-          })}
-      </div>
     </>
   );
 }
