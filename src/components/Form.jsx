@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { FamilyContext } from "../context/FamilyContext";
 const StTop = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
   position: relative;
   background-size: 25%;
   width: 100%;
@@ -104,7 +101,10 @@ const StFeedNickname = styled.div``;
 const StFeedDate = styled.div``;
 const StFeedContent = styled.div``;
 
-function Form({ feed, setFeed }) {
+function Form() {
+  const data = useContext(FamilyContext);
+
+  console.log(data);
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [member, setMember] = useState("카리나");
@@ -126,7 +126,7 @@ function Form({ feed, setFeed }) {
       writedTo: member,
       id: uuid(),
     };
-    setFeed((prev) => [...prev, newFeed]);
+    data.setFeed((prev) => [...prev, newFeed]);
     alert("등륵이 완료됐습니다");
   };
 
@@ -143,7 +143,7 @@ function Form({ feed, setFeed }) {
     setMember(e.target.value);
   };
 
-  const filteredData = feed.filter((item) => item.writedTo === clicked);
+  const filteredData = data.feed.filter((item) => item.writedTo === clicked);
   return (
     <>
       <StTop>

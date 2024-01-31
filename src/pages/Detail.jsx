@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { FamilyContext } from "../context/FamilyContext";
 
 const StFeedSection = styled.div`
   width: 1000px;
@@ -44,13 +45,15 @@ const StButton = styled.div`
   gap: 10px;
 `;
 
-function Detail({ feed, setFeed }) {
+function Detail() {
+  const data = useContext(FamilyContext);
+  console.log(data);
   const params = useParams();
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState("");
 
-  const foundData = feed.find((item) => {
+  const foundData = data.feed.find((item) => {
     return item.id === params.id;
   });
 
@@ -64,7 +67,7 @@ function Detail({ feed, setFeed }) {
     setIsEditing(false);
     const answer = window.confirm("이대로 수정하시겠습니까?");
     if (!answer) return;
-    setFeed([...feed, (foundData.content = editText)]);
+    data.setFeed([...data.feed, (foundData.content = editText)]);
   };
   const DeleteButton = () => {
     const answer = window.confirm("정말삭제하시겠습니까?");
@@ -73,7 +76,9 @@ function Detail({ feed, setFeed }) {
     // const prac = feed.filter((item) => item.id !== params.id);
     // setFeed(prac);
 
-    setFeed((prevFeed) => prevFeed.filter((item) => item.id !== params.id));
+    data.setFeed((prevFeed) =>
+      prevFeed.filter((item) => item.id !== params.id)
+    );
     navigate("/");
   };
 

@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Detail from "../pages/Detail";
 import Home from "../pages/Home";
 import { useState } from "react";
+import { FamilyContext } from "../context/FamilyContext";
 
 const Router = () => {
   const [feed, setFeed] = useState([
@@ -58,12 +59,52 @@ const Router = () => {
   ]);
 
   return (
+    // props-drilling 할 때
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route path="/" element={<Home feed={feed} setFeed={setFeed} />} />
+    //     <Route
+    //       path="/detail/:id"
+    //       element={<Detail feed={feed} setFeed={setFeed} />}
+    //     />
+    //   </Routes>
+    // </BrowserRouter>
+
+    // value안에 객체가 들어가야함
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route
+    //       path="/"
+    //       element={
+    //         <FamilyContext.Provider value={{ feed, setFeed }}>
+    //           <Home />
+    //         </FamilyContext.Provider>
+    //       }
+    //     />
+    //     <Route
+    //       path="/detail/:id"
+    //       element={<Detail feed={feed} setFeed={setFeed} />}
+    //     />
+    //   </Routes>
+    // </BrowserRouter>
+
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home feed={feed} setFeed={setFeed} />} />
+        <Route
+          path="/"
+          element={
+            <FamilyContext.Provider value={{ feed, setFeed }}>
+              <Home />
+            </FamilyContext.Provider>
+          }
+        />
         <Route
           path="/detail/:id"
-          element={<Detail feed={feed} setFeed={setFeed} />}
+          element={
+            <FamilyContext.Provider value={{ feed, setFeed }}>
+              <Detail />
+            </FamilyContext.Provider>
+          }
         />
       </Routes>
     </BrowserRouter>
