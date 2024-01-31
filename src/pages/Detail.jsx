@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -27,15 +27,16 @@ const StFeedNickname = styled.div`
 const StFeedDate = styled.div`
   font-size: 16px;
 `;
-const StFeedContent = styled.div`
+const StFeedContent = styled.textarea`
   margin: 24px 0 24px 0;
-
+  width: 100%;
   font-size: 24px;
   padding: 16px;
   line-height: 48px;
   border-radius: 10px;
   height: 275px;
   background-color: black;
+  color: white;
 `;
 const StButton = styled.div`
   display: flex;
@@ -46,17 +47,35 @@ const StButton = styled.div`
 function Detail({ feed, setFeed }) {
   const params = useParams();
   const navigate = useNavigate();
-
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState("");
+  console.log(params);
   const foundData = feed.find((item) => {
     return item.id === params.id;
   });
+  console.log(foundData);
 
   const goHome = () => {
     navigate("/");
   };
+  const EditButton = () => {
+    // const newData = feed.map((item) => {
+    //   return item.id === params.id;
+    // });
+    // console.log(newData);
+    if (!editText) {
+      return alert("수정사항이 없습니다.");
+    }
+    setIsEditing(false);
+    const answer = window.confirm("이대로 수정하시겠습니까?");
+    if (!answer) return;
+    setFeed([...feed, (foundData.content = editText)]);
+    // setFeed((prev) => prev.filter((item) => item.content !== editText));
+  };
   const DeleteButton = () => {
-    if (window.confirm("정말삭제하시겠습니까?"))
-      setFeed((prev) => prev.filter((item) => item.id !== params.id));
+    const answer = window.confirm("정말삭제하시겠습니까?");
+    if (!answer) return;
+    setFeed((prev) => prev.filter((item) => item.id !== params.id));
     navigate("/");
   };
 
@@ -82,7 +101,6 @@ function Detail({ feed, setFeed }) {
           </button>
 
           <StFeedSection>
-            {/* <img src="" alt="유저 프로필 이미지" /> */}
             <StTop>
               <img
                 style={{
@@ -111,32 +129,64 @@ function Detail({ feed, setFeed }) {
             >
               To:{foundData.writedTo}
             </div>
-            <StFeedContent>{foundData.content}</StFeedContent>
-            <StButton>
-              <button
-                style={{
-                  fontSize: "15px",
-                  padding: "5px 5px",
-                  backgroundColor: "black",
-                  color: "white",
-                  cursor: "pointer",
-                }}
-              >
-                수정
-              </button>
-              <button
-                style={{
-                  fontSize: "15px",
-                  padding: "5px 5px",
-                  backgroundColor: "black",
-                  color: "white",
-                  cursor: "pointer",
-                }}
-                onClick={DeleteButton}
-              >
-                삭제
-              </button>
-            </StButton>
+
+            <>
+              {isEditing ? (
+                <StFeedContent
+                  onChange={(e) => setEditText(e.target.value)}
+                  defaultValue={foundData.content}
+                  maxLength={100}
+                  key={foundData.id}
+                />
+              ) : (
+                <>
+                  <StFeedContent readOnly>{foundData.content}</StFeedContent>
+                </>
+              )}
+              {!isEditing ? (
+                <StButton>
+                  <button
+                    style={{
+                      fontSize: "15px",
+                      padding: "5px 5px",
+                      backgroundColor: "black",
+                      color: "white",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => setIsEditing(true)}
+                  >
+                    수정
+                  </button>
+                  <button
+                    style={{
+                      fontSize: "15px",
+                      padding: "5px 5px",
+                      backgroundColor: "black",
+                      color: "white",
+                      cursor: "pointer",
+                    }}
+                    onClick={DeleteButton}
+                  >
+                    삭제
+                  </button>
+                </StButton>
+              ) : (
+                <StButton>
+                  <button
+                    style={{
+                      fontSize: "15px",
+                      padding: "5px 5px",
+                      backgroundColor: "black",
+                      color: "white",
+                      cursor: "pointer",
+                    }}
+                    onClick={EditButton}
+                  >
+                    수정완료
+                  </button>
+                </StButton>
+              )}
+            </>
           </StFeedSection>
         </>
       )}
