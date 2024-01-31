@@ -49,20 +49,15 @@ function Detail({ feed, setFeed }) {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState("");
-  console.log(params);
+
   const foundData = feed.find((item) => {
     return item.id === params.id;
   });
-  console.log(foundData);
 
   const goHome = () => {
     navigate("/");
   };
   const EditButton = () => {
-    // const newData = feed.map((item) => {
-    //   return item.id === params.id;
-    // });
-    // console.log(newData);
     if (!editText) {
       return alert("수정사항이 없습니다.");
     }
@@ -70,12 +65,15 @@ function Detail({ feed, setFeed }) {
     const answer = window.confirm("이대로 수정하시겠습니까?");
     if (!answer) return;
     setFeed([...feed, (foundData.content = editText)]);
-    // setFeed((prev) => prev.filter((item) => item.content !== editText));
   };
   const DeleteButton = () => {
     const answer = window.confirm("정말삭제하시겠습니까?");
     if (!answer) return;
-    setFeed((prev) => prev.filter((item) => item.id !== params.id));
+
+    // const prac = feed.filter((item) => item.id !== params.id);
+    // setFeed(prac);
+
+    setFeed((prevFeed) => prevFeed.filter((item) => item.id !== params.id));
     navigate("/");
   };
 
@@ -140,7 +138,8 @@ function Detail({ feed, setFeed }) {
                 />
               ) : (
                 <>
-                  <StFeedContent readOnly>{foundData.content}</StFeedContent>
+                  <StFeedContent readOnly defaultValue={foundData.content} />
+                  {/* <StFeedContent readOnly>{foundData.content}</StFeedContent> */}
                 </>
               )}
               {!isEditing ? (
