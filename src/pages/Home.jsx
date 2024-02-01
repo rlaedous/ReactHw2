@@ -1,9 +1,9 @@
 import Form from "../components/Form";
 
-function Home({ feed, setFeed }) {
+function Home() {
   return (
     <>
-      <Form feed={feed} setFeed={setFeed} />
+      <Form />
     </>
   );
 }

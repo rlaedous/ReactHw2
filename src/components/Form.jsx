@@ -106,7 +106,7 @@ const StFeedNickname = styled.div``;
 const StFeedDate = styled.div``;
 const StFeedContent = styled.div``;
 
-function Form({ feed, setFeed }) {
+function Form() {
   const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
@@ -114,14 +114,11 @@ function Form({ feed, setFeed }) {
   const [clicked, setClicked] = useState("카리나");
 
   const avatar = "";
-  const reducePrac = useSelector((state) => state.reducerPrac);
-  console.log("reducePrac", reducePrac);
+  const reduxPrac = useSelector((state) => state.reducerPrac);
 
-  const reducefilteredData = reducePrac.filter(
+  const reduxfilteredData = reduxPrac.filter(
     (item) => item.writedTo === clicked
   );
-  console.log("reducefilteredData", reducefilteredData);
-  // const filteredData = feed.filter((item) => item.writedTo === clicked);
 
   const ClickPerson = (e) => {
     setClicked(e.target.value);
@@ -140,10 +137,7 @@ function Form({ feed, setFeed }) {
       id: uuid(),
     };
     // setFeed((prev) => [...prev, newFeed]);
-
-    // TODO
     dispatch(addFeed(newFeed));
-
     alert("등륵이 완료됐습니다");
   };
 
@@ -160,6 +154,10 @@ function Form({ feed, setFeed }) {
     setMember(e.target.value);
   };
 
+  // useEffect(() => {
+  //   console.log("reduxPrac", reduxPrac);
+  //   console.log("reduxfilteredData", reduxfilteredData);
+  // }, [reduxfilteredData]);
   return (
     <>
       <StTop>
@@ -217,7 +215,9 @@ function Form({ feed, setFeed }) {
       </StForm>
 
       <div>
-        {reducefilteredData.map((item) => {
+        {reduxfilteredData.map((item) => {
+          console.log(reduxfilteredData);
+          console.log(item);
           return (
             <div key={item.id} style={{ border: "1px solid red" }}>
               <Link to={`/detail/${item.id}`}>
@@ -235,7 +235,7 @@ function Form({ feed, setFeed }) {
             </div>
           );
         })}
-        {reducefilteredData.length === 0 ? <>데이터가없습니다</> : null}
+        {reduxfilteredData.length === 0 ? <>데이터가없습니다</> : null}
       </div>
     </>
   );

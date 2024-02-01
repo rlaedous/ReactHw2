@@ -2,10 +2,15 @@ import uuid from "react-uuid";
 
 // 액션 밸류
 const ADD_FEED = "ADD_FEED";
+const DELETE_FEED = "DELETE_FEED";
 
 // 액션 크리에이터
 export const addFeed = (payload) => {
   return { type: ADD_FEED, payload };
+};
+
+export const deleteFeed = (payload) => {
+  return { type: DELETE_FEED, payload };
 };
 
 //초기 상태값
@@ -84,7 +89,8 @@ const reducerPrac = (state = initialState, action) => {
   switch (action.type) {
     case ADD_FEED:
       return [...state, action.payload];
-
+    case DELETE_FEED:
+      return [...state.filter((item) => item.id !== action.payload)];
     default:
       return state;
   }

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { deleteFeed } from "../redux/modules/leteer";
 
 const StFeedSection = styled.div`
   width: 1000px;
@@ -46,7 +48,12 @@ const StButton = styled.div`
 
 function Detail({ feed, setFeed }) {
   console.log(feed);
+  const dispatch = useDispatch();
+  const prac = useSelector((state) => state.reducerPrac);
+  console.log(prac);
+
   const params = useParams();
+  console.log(params);
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState("");
@@ -74,7 +81,8 @@ function Detail({ feed, setFeed }) {
     // const prac = feed.filter((item) => item.id !== params.id);
     // setFeed(prac);
 
-    setFeed((prevFeed) => prevFeed.filter((item) => item.id !== params.id));
+    dispatch(deleteFeed(params.id));
+    // setFeed((prevFeed) => prevFeed.filter((item) => item.id !== params.id));
     navigate("/");
   };
 
