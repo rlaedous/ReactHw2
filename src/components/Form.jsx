@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
 import { Link } from "react-router-dom";
@@ -112,14 +112,11 @@ function Form() {
   const [content, setContent] = useState("");
   const [member, setMember] = useState("카리나");
   const [clicked, setClicked] = useState("카리나");
-
   const avatar = "";
   const reduxPrac = useSelector((state) => state.reducerPrac);
-
   const reduxfilteredData = reduxPrac.filter(
     (item) => item.writedTo === clicked
   );
-
   const ClickPerson = (e) => {
     setClicked(e.target.value);
   };
@@ -154,10 +151,6 @@ function Form() {
     setMember(e.target.value);
   };
 
-  // useEffect(() => {
-  //   console.log("reduxPrac", reduxPrac);
-  //   console.log("reduxfilteredData", reduxfilteredData);
-  // }, [reduxfilteredData]);
   return (
     <>
       <StTop>
@@ -216,8 +209,6 @@ function Form() {
 
       <div>
         {reduxfilteredData.map((item) => {
-          console.log(reduxfilteredData);
-          console.log(item);
           return (
             <div key={item.id} style={{ border: "1px solid red" }}>
               <Link to={`/detail/${item.id}`}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { deleteFeed } from "../redux/modules/leteer";
+import { deleteFeed, editFeed } from "../redux/modules/leteer";
 
 const StFeedSection = styled.div`
   width: 1000px;
@@ -46,21 +46,18 @@ const StButton = styled.div`
   gap: 10px;
 `;
 
-function Detail({ feed, setFeed }) {
-  console.log(feed);
+function Detail() {
   const dispatch = useDispatch();
   const prac = useSelector((state) => state.reducerPrac);
-  console.log(prac);
-
   const params = useParams();
-  console.log(params);
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState("");
 
-  const foundData = feed.find((item) => {
+  const foundData = prac.find((item) => {
     return item.id === params.id;
   });
+  console.log("foundData", foundData);
 
   const goHome = () => {
     navigate("/");
@@ -72,15 +69,12 @@ function Detail({ feed, setFeed }) {
     setIsEditing(false);
     const answer = window.confirm("이대로 수정하시겠습니까?");
     if (!answer) return;
-    setFeed([...feed, (foundData.content = editText)]);
+    // setFeed([...feed, (foundData.content = editText)]);
+    dispatch(editFeed((foundData.content = editText)));
   };
   const DeleteButton = () => {
     const answer = window.confirm("정말삭제하시겠습니까?");
     if (!answer) return;
-
-    // const prac = feed.filter((item) => item.id !== params.id);
-    // setFeed(prac);
-
     dispatch(deleteFeed(params.id));
     // setFeed((prevFeed) => prevFeed.filter((item) => item.id !== params.id));
     navigate("/");
@@ -106,7 +100,6 @@ function Detail({ feed, setFeed }) {
           >
             홈으로
           </button>
-
           <StFeedSection>
             <StTop>
               <img
@@ -119,7 +112,6 @@ function Detail({ feed, setFeed }) {
                 src={`${foundData.avatar}`}
                 alt="유저 프로필 이미지"
               />
-
               <StFeedNicknameDate>
                 <StFeedNickname>{foundData.nickname}</StFeedNickname>
                 <StFeedDate>{foundData.createdAt}</StFeedDate>
@@ -136,7 +128,6 @@ function Detail({ feed, setFeed }) {
             >
               To:{foundData.writedTo}
             </div>
-
             <>
               {isEditing ? (
                 <StFeedContent

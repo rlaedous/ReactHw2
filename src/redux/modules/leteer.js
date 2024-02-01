@@ -1,8 +1,7 @@
-import uuid from "react-uuid";
-
 // 액션 밸류
 const ADD_FEED = "ADD_FEED";
 const DELETE_FEED = "DELETE_FEED";
+const EDIT_FEED = "EDIT_FEED";
 
 // 액션 크리에이터
 export const addFeed = (payload) => {
@@ -13,6 +12,9 @@ export const deleteFeed = (payload) => {
   return { type: DELETE_FEED, payload };
 };
 
+export const editFeed = (payload) => {
+  return { type: EDIT_FEED, payload };
+};
 //초기 상태값
 const initialState = [
   {
@@ -35,6 +37,7 @@ const initialState = [
     writedTo: "지젤",
     id: "2",
   },
+  // 윈터부분 데이터 없애려고
   // {
   //   createdAt: "2023-11-02T11:25:37.026Z",
   //   nickname: "Tommy Abshire",
@@ -67,30 +70,19 @@ const initialState = [
   },
 ];
 
-//  const [member, setMember] = useState("카리나"); const [clicked, setClicked] = useState("카리나");
-
-// ...state 랑 action.payload 같은값찍힘
 //리듀서
 
 // TODO: (2)
 // action.type
 // action.payload
 const reducerPrac = (state = initialState, action) => {
-  // const newFeed = {
-  //   createdAt: Number(new Date()),
-  //   // nickname: ,
-  //   content: state.content,
-  //   // avatar,
-  //   // writedTo: member,
-  //   id: uuid(),
-  // };
-
-  console.log("action", action);
   switch (action.type) {
     case ADD_FEED:
       return [...state, action.payload];
     case DELETE_FEED:
       return [...state.filter((item) => item.id !== action.payload)];
+    case EDIT_FEED:
+      return [...state, action.payload];
     default:
       return state;
   }
