@@ -45,6 +45,7 @@ const StButton = styled.div`
 `;
 
 function Detail({ feed, setFeed }) {
+  console.log(feed);
   const params = useParams();
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);

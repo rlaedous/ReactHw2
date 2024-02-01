@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addFeed } from "../redux/modules/leteer";
 const StTop = styled.div`
   /* display: flex;
   flex-direction: column;
@@ -105,10 +107,21 @@ const StFeedDate = styled.div``;
 const StFeedContent = styled.div``;
 
 function Form({ feed, setFeed }) {
+  const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [member, setMember] = useState("카리나");
   const [clicked, setClicked] = useState("카리나");
+
+  const avatar = "";
+  const reducePrac = useSelector((state) => state.reducerPrac);
+  console.log("reducePrac", reducePrac);
+
+  const reducefilteredData = reducePrac.filter(
+    (item) => item.writedTo === clicked
+  );
+  console.log("reducefilteredData", reducefilteredData);
+  // const filteredData = feed.filter((item) => item.writedTo === clicked);
 
   const ClickPerson = (e) => {
     setClicked(e.target.value);
@@ -122,11 +135,15 @@ function Form({ feed, setFeed }) {
       createdAt: Number(new Date()),
       nickname,
       content,
-      // avatar,
+      avatar,
       writedTo: member,
       id: uuid(),
     };
-    setFeed((prev) => [...prev, newFeed]);
+    // setFeed((prev) => [...prev, newFeed]);
+
+    // TODO
+    dispatch(addFeed(newFeed));
+
     alert("등륵이 완료됐습니다");
   };
 
@@ -143,7 +160,6 @@ function Form({ feed, setFeed }) {
     setMember(e.target.value);
   };
 
-  const filteredData = feed.filter((item) => item.writedTo === clicked);
   return (
     <>
       <StTop>
@@ -201,7 +217,7 @@ function Form({ feed, setFeed }) {
       </StForm>
 
       <div>
-        {filteredData.map((item) => {
+        {reducefilteredData.map((item) => {
           return (
             <div key={item.id} style={{ border: "1px solid red" }}>
               <Link to={`/detail/${item.id}`}>
@@ -219,7 +235,7 @@ function Form({ feed, setFeed }) {
             </div>
           );
         })}
-        {filteredData.length === 0 ? <>데이터가없습니다</> : null}
+        {reducefilteredData.length === 0 ? <>데이터가없습니다</> : null}
       </div>
     </>
   );
