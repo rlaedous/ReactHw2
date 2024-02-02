@@ -4,6 +4,7 @@ import uuid from "react-uuid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../redux/modules/leteer";
+import basic from "../assets/defaultAvatar.jpg";
 
 const StTop = styled.div`
   /* display: flex;
@@ -145,15 +146,15 @@ function Form() {
   const [member, setMember] = useState("카리나");
   const [clicked, setClicked] = useState("카리나");
 
-  const avatar = "";
   const reduxPrac = useSelector((state) => state.reducerPrac);
-  console.log(clicked);
   const reduxfilteredData = reduxPrac.filter(
     (item) => item.writedTo === clicked
   );
+
   const ClickPerson = (e) => {
     setClicked(e.target.value);
   };
+
   const Enroll = (e) => {
     e.preventDefault();
     if (nickname.length === 0 || content.length === 0) {
@@ -163,11 +164,10 @@ function Form() {
       createdAt: Number(new Date()),
       nickname,
       content,
-      avatar,
+      avatar: basic,
       writedTo: member,
       id: uuid(),
     };
-    // setFeed((prev) => [...prev, newFeed]);
     dispatch(addFeed(newFeed));
     alert("등륵이 완료됐습니다");
   };
@@ -181,18 +181,15 @@ function Form() {
   };
 
   const selectMember = (e) => {
-    console.log(e.target.value);
     setMember(e.target.value);
   };
-  console.log(reduxPrac);
-  console.log(reduxPrac.filter((item) => item.writedTo === clicked));
+
   return (
     <>
       <StTop>
         <StHeader>에스파 팬레터 콜렉션</StHeader>;
         <StUl>
           {/* option으로 주면 value없어도 클릭시마다 데이터뜸 button은 value를 넣어줘야함 클릭한 태그 */}
-
           <StLi
             $isActive={clicked === "카리나"}
             onClick={ClickPerson}
@@ -266,9 +263,6 @@ function Form() {
               key={item.id}
               style={{
                 backgroundColor: "black",
-                hover: {
-                  backgroundColor: "lightblue",
-                },
               }}
             >
               <Link to={`/detail/${item.id}`}>

@@ -57,11 +57,11 @@ function Detail() {
   const foundData = prac.find((item) => {
     return item.id === params.id;
   });
-  console.log("foundData", foundData);
 
   const goHome = () => {
     navigate("/");
   };
+
   const EditButton = () => {
     if (!editText) {
       return alert("수정사항이 없습니다.");
@@ -72,6 +72,7 @@ function Detail() {
     // setFeed([...feed, (foundData.content = editText)]);
     dispatch(editFeed((foundData.content = editText)));
   };
+
   const DeleteButton = () => {
     const answer = window.confirm("정말삭제하시겠습니까?");
     if (!answer) return;
