@@ -4,6 +4,7 @@ import uuid from "react-uuid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../redux/modules/leteer";
+
 const StTop = styled.div`
   /* display: flex;
   flex-direction: column;
@@ -33,7 +34,7 @@ const StUl = styled.ul`
   bottom: 16px;
   position: absolute;
 `;
-const StLi = styled.option`
+const StLi = styled.button`
   font-size: 20px;
   border: 1px solid black;
   border-radius: 5px;
@@ -42,9 +43,16 @@ const StLi = styled.option`
   text-align: center;
   user-select: none;
   cursor: pointer;
-  background-color: yellow;
-
+  background-color: ${(props) => (props.$isActive ? "red" : "yellow")};
+  &:hover {
+    background-color: lightblue;
+    color: white;
+    transform: scale(1.5);
+  }
   color: black;
+  &:active {
+    background-color: black;
+  }
 `;
 
 const StForm = styled.form`
@@ -96,15 +104,39 @@ const StButton = styled.button`
 const StFeedSection = styled.div`
   flex-direction: column;
   width: 500px;
-  margin: 20px;
+  /* margin: 20px; */
+  padding: 10px;
+  /* border-radius: 10px; */
+  border: 1px solid white;
+`;
+const StCard = styled.div`
+  flex-direction: column;
+  color: white;
+  border: 1px solid white;
+  display: flex;
+  background-color: gray;
+  &:hover {
+    color: black;
+    transform: scale(1.01);
+  }
 `;
 const StFeedNicknameDate = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const StFeedNickname = styled.div``;
-const StFeedDate = styled.div``;
-const StFeedContent = styled.div``;
+const StFeedContent = styled.div`
+  background-color: rgb(37, 33, 33);
+  border-radius: 10px;
+  padding: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+  width: 400px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  display: block;
+`;
 
 function Form() {
   const dispatch = useDispatch();
@@ -112,8 +144,10 @@ function Form() {
   const [content, setContent] = useState("");
   const [member, setMember] = useState("카리나");
   const [clicked, setClicked] = useState("카리나");
+
   const avatar = "";
   const reduxPrac = useSelector((state) => state.reducerPrac);
+  console.log(clicked);
   const reduxfilteredData = reduxPrac.filter(
     (item) => item.writedTo === clicked
   );
@@ -150,23 +184,41 @@ function Form() {
     console.log(e.target.value);
     setMember(e.target.value);
   };
-
+  console.log(reduxPrac);
+  console.log(reduxPrac.filter((item) => item.writedTo === clicked));
   return (
     <>
       <StTop>
         <StHeader>에스파 팬레터 콜렉션</StHeader>;
         <StUl>
-          {/* option으로 주니까 value나타남 */}
-          <StLi value="카리나" onClick={(e) => ClickPerson(e)}>
+          {/* option으로 주면 value없어도 클릭시마다 데이터뜸 button은 value를 넣어줘야함 클릭한 태그 */}
+
+          <StLi
+            $isActive={clicked === "카리나"}
+            onClick={ClickPerson}
+            value="카리나"
+          >
             카리나
           </StLi>
-          <StLi value="윈터" onClick={ClickPerson}>
+          <StLi
+            $isActive={clicked === "윈터"}
+            onClick={ClickPerson}
+            value="윈터"
+          >
             윈터
           </StLi>
-          <StLi value="닝닝" onClick={ClickPerson}>
+          <StLi
+            $isActive={clicked === "닝닝"}
+            onClick={ClickPerson}
+            value="닝닝"
+          >
             닝닝
           </StLi>
-          <StLi value="지젤" onClick={ClickPerson}>
+          <StLi
+            $isActive={clicked === "지젤"}
+            onClick={ClickPerson}
+            value="지젤"
+          >
             지젤
           </StLi>
         </StUl>
@@ -210,23 +262,65 @@ function Form() {
       <div>
         {reduxfilteredData.map((item) => {
           return (
-            <div key={item.id} style={{ border: "1px solid red" }}>
+            <div
+              key={item.id}
+              style={{
+                backgroundColor: "black",
+                hover: {
+                  backgroundColor: "lightblue",
+                },
+              }}
+            >
               <Link to={`/detail/${item.id}`}>
                 <StFeedSection>
-                  <div style={{ backgroundColor: "red", flexDirection: "row" }}>
-                    <img src={`${item.avatar}`} alt="유저 프로필 이미지" />
-                    <StFeedNicknameDate>
-                      <StFeedNickname>{item.nickname}</StFeedNickname>
-                      <StFeedDate>{item.createdAt}</StFeedDate>
-                    </StFeedNicknameDate>
-                  </div>
-                  <StFeedContent>{item.content}</StFeedContent>
+                  <StCard>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "500px",
+                      }}
+                    >
+                      <img
+                        style={{
+                          borderRadius: "50%",
+                          width: "60px",
+                          height: "60px",
+                          marginRight: "20px",
+                        }}
+                        src={`${item.avatar}`}
+                        alt="유저 프로필 이미지"
+                      />
+                      <StFeedNicknameDate>
+                        <div>{item.nickname}</div>
+                        <div>{item.createdAt}</div>
+                      </StFeedNicknameDate>
+                    </div>
+                    <StFeedContent>{item.content}</StFeedContent>
+                  </StCard>
                 </StFeedSection>
               </Link>
             </div>
           );
         })}
-        {reduxfilteredData.length === 0 ? <>데이터가없습니다</> : null}
+        {reduxfilteredData.length === 0 ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              width: "500px",
+              backgroundColor: "black",
+              padding: "20px",
+              borderRadius: "5px",
+              margin: "0px auto",
+              color: "white",
+            }}
+          >
+            {`${clicked}에게 남겨진 팬레터가 없습니다. 첫 번째 팬레터의 주인공이
+            되주세요`}
+          </div>
+        ) : null}
       </div>
     </>
   );
