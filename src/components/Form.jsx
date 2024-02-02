@@ -161,7 +161,7 @@ function Form() {
       return alert("닉네임과 내용은 필수 입력입니다!");
     }
     const newFeed = {
-      createdAt: Number(new Date()),
+      createdAt: new Date().toString(),
       nickname,
       content,
       avatar: basic,
@@ -170,6 +170,9 @@ function Form() {
     };
     dispatch(addFeed(newFeed));
     alert("등륵이 완료됐습니다");
+    setNickname("");
+    setContent("");
+    setMember("카리나");
   };
 
   const nickNameChangeHandler = (e) => {
@@ -244,11 +247,11 @@ function Form() {
         </StSection>
         <StSelectWrap>
           누구에게 보내실 건가요?
-          <select onChange={selectMember}>
-            <option value="카리나">카리나</option>
-            <option value="윈터">윈터</option>
-            <option value="닝닝">닝닝</option>
-            <option value="지젤">지젤</option>
+          <select onChange={selectMember} value={member}>
+            <option>카리나</option>
+            <option>윈터</option>
+            <option>닝닝</option>
+            <option>지젤</option>
           </select>
         </StSelectWrap>
         <StButtonDiv>
