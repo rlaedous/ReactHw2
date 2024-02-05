@@ -4,7 +4,7 @@ import Home from "../pages/Home";
 
 const Router = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<Home feed={feed} setFeed={setFeed} />} /> */}
         <Route path="/" element={<Home />} />
@@ -15,7 +15,7 @@ const Router = () => {
           element={<Detail />}
         />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
