@@ -1,7 +1,7 @@
 ## 브랜치
 1. props-drilling
 2. context api
-3. redux - https://react-hw2-r4sjodoeh-rlaedous.vercel.app/
+3. redux - https://react-hw2-pink.vercel.app/
 
 github pages로 배포 하려했으나 화면이 나타나지 않는 문제로 인해 vercel로 배포하였습니다.
 
