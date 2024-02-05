@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "https://rlaedous.github.io/ReactHw2/static/css/main.90f6920e.css",
-    "main.js": "https://rlaedous.github.io/ReactHw2/static/js/main.185d7e86.js",
+    "main.js": "https://rlaedous.github.io/ReactHw2/static/js/main.b42447e1.js",
     "static/js/787.6edb87c5.chunk.js": "https://rlaedous.github.io/ReactHw2/static/js/787.6edb87c5.chunk.js",
     "static/media/defaultAvatar.jpg": "https://rlaedous.github.io/ReactHw2/static/media/defaultAvatar.4eff0030f48c3f29f105.jpg",
     "index.html": "https://rlaedous.github.io/ReactHw2/index.html",
     "main.90f6920e.css.map": "https://rlaedous.github.io/ReactHw2/static/css/main.90f6920e.css.map",
-    "main.185d7e86.js.map": "https://rlaedous.github.io/ReactHw2/static/js/main.185d7e86.js.map",
+    "main.b42447e1.js.map": "https://rlaedous.github.io/ReactHw2/static/js/main.b42447e1.js.map",
     "787.6edb87c5.chunk.js.map": "https://rlaedous.github.io/ReactHw2/static/js/787.6edb87c5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.90f6920e.css",
-    "static/js/main.185d7e86.js"
+    "static/js/main.b42447e1.js"
   ]
 }
