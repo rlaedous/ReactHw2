@@ -1,10 +1,10 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import Detail from "../pages/Detail";
 import Home from "../pages/Home";
 
 const Router = () => {
   return (
-    <BrowserRouter basename="ReactHw2">
+    <HashRouter>
       <Routes>
         {/* <Route path="/" element={<Home feed={feed} setFeed={setFeed} />} /> */}
         <Route path="/" element={<Home />} />
@@ -15,7 +15,7 @@ const Router = () => {
           element={<Detail />}
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

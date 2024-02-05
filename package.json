@@ -2,7 +2,7 @@
   "name": "reacthw2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rlaedous.github.io/ReactHw2/",
+  "homepage": "https://rlaedous.github.io/ReactHw2",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -15,6 +15,7 @@
     "react-scripts": "5.0.1",
     "react-uuid": "^2.0.0",
     "redux": "^5.0.1",
+    "serve": "^14.2.1",
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
   },
@@ -24,9 +25,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "serve" : "serve -s build"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
