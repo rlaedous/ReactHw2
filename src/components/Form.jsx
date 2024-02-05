@@ -3,14 +3,10 @@ import styled from "styled-components";
 import uuid from "react-uuid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addFeed } from "../redux/modules/leteer";
+import { addFeed } from "../redux/modules/letter";
 import basic from "../assets/defaultAvatar.jpg";
 
 const StTop = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
   position: relative;
   background-size: 25%;
   width: 100%;
@@ -90,24 +86,19 @@ const StTextarea = styled.textarea`
 `;
 const StButtonDiv = styled.div`
   display: flex;
-  /* background-color: red; */
   align-items: flex-end;
 `;
 const StButton = styled.button`
   font-size: 14px;
   padding: 5px 10px;
   cursor: pointer;
-  /* user-select: none; */
-
   background-color: black;
   color: white;
 `;
 const StFeedSection = styled.div`
   flex-direction: column;
   width: 500px;
-  /* margin: 20px; */
   padding: 10px;
-  /* border-radius: 10px; */
   border: 1px solid white;
 `;
 const StCard = styled.div`
@@ -147,6 +138,7 @@ function Form() {
   const [clicked, setClicked] = useState("카리나");
 
   const reduxPrac = useSelector((state) => state.reducerPrac);
+  console.log(reduxPrac);
   const reduxfilteredData = reduxPrac.filter(
     (item) => item.writedTo === clicked
   );

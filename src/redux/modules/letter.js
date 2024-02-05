@@ -15,8 +15,9 @@ export const deleteFeed = (payload) => {
 export const editFeed = (payload) => {
   return { type: EDIT_FEED, payload };
 };
+
 //초기 상태값
-const initialState = [
+const initialState = JSON.parse(localStorage.getItem("new")) ?? [
   {
     createdAt: "2023-11-03T02:07:09.423Z",
     nickname: "Dr. Clint Christiansen",
@@ -37,17 +38,6 @@ const initialState = [
     writedTo: "지젤",
     id: "2",
   },
-  // 윈터부분 데이터 없애려고
-  // {
-  //   createdAt: "2023-11-02T11:25:37.026Z",
-  //   nickname: "Tommy Abshire",
-  //   avatar:
-  //     "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/646.jpg",
-  //   content:
-  //     "윈터1 Itaque nihil quae neque itaque. Non a officiis ducimus nemo consectetur. Ducimus libero voluptatum consequuntur.",
-  //   writedTo: "윈터",
-  //   id: "3",
-  // },
   {
     createdAt: "2023-11-02T16:06:34.150Z",
     nickname: "Max Mayert",
@@ -75,13 +65,20 @@ const initialState = [
 // TODO: (2)
 // action.type
 // action.payload
+
 const reducerPrac = (state = initialState, action) => {
   switch (action.type) {
     case ADD_FEED:
+      localStorage.setItem("new", JSON.stringify([...state, action.payload]));
       return [...state, action.payload];
     case DELETE_FEED:
+      localStorage.setItem(
+        "new",
+        JSON.stringify([...state.filter((item) => item.id !== action.payload)])
+      );
       return [...state.filter((item) => item.id !== action.payload)];
     case EDIT_FEED:
+      localStorage.setItem("new", JSON.stringify([...state, action.payload]));
       return [...state, action.payload];
     default:
       return state;

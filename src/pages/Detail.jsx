@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { deleteFeed, editFeed } from "../redux/modules/leteer";
+import { deleteFeed, editFeed } from "../redux/modules/letter";
 
 const StFeedSection = styled.div`
   width: 1000px;
@@ -20,7 +20,6 @@ const StTop = styled.div`
 const StFeedNicknameDate = styled.div`
   display: flex;
   flex-direction: row;
-  /* background-color: red; */
   gap: 400px;
 `;
 const StFeedNickname = styled.div`

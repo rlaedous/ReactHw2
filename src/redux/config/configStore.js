@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 import { combineReducers } from "redux";
-import reducerPrac from "../modules/leteer";
+import reducerPrac from "../modules/letter";
 
 /*
 1. createStore()
