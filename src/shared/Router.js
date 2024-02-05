@@ -4,7 +4,7 @@ import Home from "../pages/Home";
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         {/* <Route path="/" element={<Home feed={feed} setFeed={setFeed} />} /> */}
         <Route path="/" element={<Home />} />
