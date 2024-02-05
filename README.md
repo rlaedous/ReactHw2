@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+## 브랜치
+1. props-drilling
+2. context api
+3. redux - https://react-hw2-r4sjodoeh-rlaedous.vercel.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+github pages로 배포 하려했으나 화면이 나타나지 않는 문제로 인해 vercel로 배포하였습니다.
 
-## Available Scripts
 
-In the project directory, you can run:
+- 팬레터 CRUD 구현 (작성, 조회, 수정, 삭제)
+- 아티스트별 게시물 조회 기능 구현 (Home - Read)
+- 원하는 아티스트에게 팬레터 등록 구현 (Home - Create)
+- 팬레터 상세 화면 구현 (Detail - Read)
+- 상세화면에서 팬레터 내용 수정 구현 (Detail - Update)
+- 상세화면에서 팬레터 삭제 구현 (Detail - Delete)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [v]  styled-components 를 이용하여 스타일링
+    - 인라인 스타일링이나 일반 css 파일을 이용한 스타일링 방식 지양 (이번 과제 한정)
+    - 모든 태그를 styled-components 화 할 필요는 없으나 스타일링이 들어가는 경우는 styled-components 화 할 것
+- [v]  전역 스타일에 reset.css 를 적용해주고 box-sizing이 border-box가 되도록 설정
+- [v]  styled-components에 props를 넘김으로 인한 조건부 스타일링 적용
+    - 아티스트 선택탭에 적용해 보세요
+- [v]  팬레터 등록 시 id는 uuid 라이브러리를 이용
 
-### `npm test`
+## 시도중 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 새로고침해도 UI 유지
+    - 로컬스토리지를 이용해 봅시다.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 파일구조
+redux
+```
+- 📦src
+ ┣ 📂assets
+ ┃ ┗ 📜defaultAvatar.jpg
+ ┣ 📂components
+ ┃ ┗ 📜Form.jsx
+ ┣ 📂pages
+ ┃ ┣ 📜Detail.jsx
+ ┃ ┗ 📜Home.jsx
+ ┣ 📂redux
+ ┃ ┣ 📂config
+ ┃ ┃ ┗ 📜configStore.js
+ ┃ ┗ 📂modules
+ ┃ ┃ ┗ 📜leteer.js
+ ┣ 📂shared
+ ┃ ┗ 📜Router.js
+ ┣ 📜App.js
+ ┣ 📜App.test.js
+ ┣ 📜GlobalStyle.jsx
+ ┣ 📜index.js
+ ┣ 📜logo.svg
+ ┣ 📜reportWebVitals.js
+ ┣ 📜reset.css
+ ┗ 📜setupTests.js
+```
