@@ -12,7 +12,7 @@ github pages로 배포 하려했으나 화면이 나타나지 않는 문제로 �
 - 팬레터 상세 화면 구현 (Detail - Read)
 - 상세화면에서 팬레터 내용 수정 구현 (Detail - Update)
 - 상세화면에서 팬레터 삭제 구현 (Detail - Delete)
-
+- localStorage를 활용하여 새로고침시에도 데이터 유지
 
 
 - [v]  styled-components 를 이용하여 스타일링
@@ -23,10 +23,7 @@ github pages로 배포 하려했으나 화면이 나타나지 않는 문제로 �
     - 아티스트 선택탭에 적용해 보세요
 - [v]  팬레터 등록 시 id는 uuid 라이브러리를 이용
 
-## 시도중 
 
-- 새로고침해도 UI 유지
-    - 로컬스토리지를 이용해 봅시다.
 
 
 ## 파일구조
@@ -44,7 +41,7 @@ redux
  ┃ ┣ 📂config
  ┃ ┃ ┗ 📜configStore.js
  ┃ ┗ 📂modules
- ┃ ┃ ┗ 📜leteer.js
+ ┃ ┃ ┗ 📜letter.js
  ┣ 📂shared
  ┃ ┗ 📜Router.js
  ┣ 📜App.js
