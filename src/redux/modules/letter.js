@@ -1,3 +1,6 @@
+import uuid from "react-uuid";
+import basic from "../../assets/defaultAvatar.jpg";
+
 // 액션 밸류
 const ADD_FEED = "ADD_FEED";
 const DELETE_FEED = "DELETE_FEED";
@@ -69,8 +72,24 @@ const initialState = JSON.parse(localStorage.getItem("new")) ?? [
 const reducerPrac = (state = initialState, action) => {
   switch (action.type) {
     case ADD_FEED:
-      localStorage.setItem("new", JSON.stringify([...state, action.payload]));
-      return [...state, action.payload];
+      // 기존 코드
+      // localStorage.setItem("new", JSON.stringify([...state, action.payload]));
+      // return [...state, action.payload];
+      // 기존 코드 끝
+
+      // 사용하고싶은 코드
+      const newFeed = {
+        createdAt: new Date().toString(),
+        nickname: action.payload.nickname,
+        content: action.payload.content,
+        avatar: basic,
+        writedTo: action.payload.member,
+        id: uuid(),
+      };
+      localStorage.setItem("new", JSON.stringify([...state, newFeed]));
+      return [...state, newFeed];
+    // 사용하고싶은 코드
+
     case DELETE_FEED:
       localStorage.setItem(
         "new",

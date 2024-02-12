@@ -138,7 +138,7 @@ function Form() {
   const [clicked, setClicked] = useState("카리나");
 
   const reduxPrac = useSelector((state) => state.reducerPrac);
-  console.log(reduxPrac);
+
   const reduxfilteredData = reduxPrac.filter(
     (item) => item.writedTo === clicked
   );
@@ -152,15 +152,22 @@ function Form() {
     if (nickname.length === 0 || content.length === 0) {
       return alert("닉네임과 내용은 필수 입력입니다!");
     }
-    const newFeed = {
-      createdAt: new Date().toString(),
-      nickname,
-      content,
-      avatar: basic,
-      writedTo: member,
-      id: uuid(),
-    };
-    dispatch(addFeed(newFeed));
+    //기존 코드
+    // const newFeed = {
+    //   createdAt: new Date().toString(),
+    //   nickname,
+    //   content,
+    //   avatar: basic,
+    //   writedTo: member,
+    //   id: uuid(),
+    // };
+    // dispatch(addFeed(newFeed));
+    //기존 코드끝
+
+    //사용하고싶은 코드
+    dispatch(addFeed({ nickname, content, member }));
+    // 사용하고싶은 코드 끝
+
     alert("등륵이 완료됐습니다");
     setNickname("");
     setContent("");
